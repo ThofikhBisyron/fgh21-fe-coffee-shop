@@ -20,7 +20,7 @@ function OrderList() {
   const [data, setDataOrder] = useState({});
 
   async function deleteItem(id) {
-    await fetch(`http://103.93.58.89:23230/transaction/${id}`, {
+    await fetch(`http://localhost:8888/transaction/${id}`, {
       method: "DELETE",
     });
     dataTransaction();
@@ -30,7 +30,7 @@ function OrderList() {
     console.log(inputSearch);
     e.preventDefault();
     const listDataTransaction = await fetch(
-      `http://103.93.58.89:23230/transaction/admin?page=${page}&search=${inputSearch}`,
+      `http://localhost:8888/transaction/admin?page=${page}&search=${inputSearch}`,
       {}
     );
     const listFilterTransaction = await listDataTransaction.json();
@@ -43,7 +43,7 @@ function OrderList() {
     // e.preventDefault();
     // const status = e.target.findStatus.value
     const listDataTransaction = await fetch(
-      `http://103.93.58.89:23230/transaction/status?search=${status}`,
+      `http://localhost:8888/transaction/status?search=${status}`,
       {}
     );
     const listFilterTransaction = await listDataTransaction.json();
@@ -55,7 +55,7 @@ function OrderList() {
   async function paginationTransactions(e) {
     e.preventDefault();
     const listDataTransaction = await fetch(
-      `http://103.93.58.89:23230/transaction/admin?page=${page}&search=${inputSearch}`,
+      `http://localhost:8888/transaction/admin?page=${page}&search=${inputSearch}`,
       {}
     );
     const listFilterTransaction = await listDataTransaction.json();
@@ -65,7 +65,7 @@ function OrderList() {
   }
 
   async function dataTransaction() {
-    const endPoint = `http://103.93.58.89:23230/transaction/admin`;
+    const endPoint = `http://localhost:8888/transaction/admin`;
     const response = await fetch(endPoint);
     const data = await response.json();
     const listData = data.result;

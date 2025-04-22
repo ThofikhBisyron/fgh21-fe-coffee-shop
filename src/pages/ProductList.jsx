@@ -19,7 +19,7 @@ function ProductList() {
   const [search, setSearch] = React.useState("");
 
   async function products() {
-    const dataProducts = await fetch("http://103.93.58.89:23230/products/", {});
+    const dataProducts = await fetch("http://localhost:8888/products/", {});
     const listProduct = await dataProducts.json();
     setProduct(listProduct.result);
   }
@@ -27,7 +27,7 @@ function ProductList() {
   async function filterProducts(e) {
     e.preventDefault();
     const dataProducts = await fetch(
-      `http://103.93.58.89:23230/products/filter/?title=${search}&page=${page}`,
+      `http://localhost:8888/products/filter/?title=${search}&page=${page}`,
       {}
     );
     const listProduct = await dataProducts.json();
@@ -36,7 +36,7 @@ function ProductList() {
 
   async function allProduct() {
     const dataProducts = await fetch(
-      `http://103.93.58.89:23230/products/filter/?title=${search}&limit=1000&page=${page}`,
+      `http://localhost:8888/products/filter/?title=${search}&limit=1000&page=${page}`,
       {}
     );
     const listProduct = await dataProducts.json();
@@ -57,7 +57,7 @@ function ProductList() {
   }, [page, search]);
 
   function removeData(id) {
-    fetch("http://103.93.58.89:23230/products/" + id, {
+    fetch("http://localhost:8888/products/" + id, {
       method: "DELETE",
     })
       .then(() => {

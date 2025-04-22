@@ -32,7 +32,7 @@ function PaymentListOrder() {
   const tax = (total * 10) / 100;
   const subTotal = total + tax;
   async function GetCarts() {
-    const response = await fetch(`http://103.93.58.89:23230/carts`, {
+    const response = await fetch(`http://localhost:8888/carts`, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -42,7 +42,7 @@ function PaymentListOrder() {
     setDataProduct(json.result);
   }
   async function DeleteCarts() {
-    const response = await fetch(`http://103.93.58.89:23230/carts`, {
+    const response = await fetch(`http://localhost:8888/carts`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + token,
@@ -83,7 +83,7 @@ function PaymentListOrder() {
       transactionStatus: 2,
     });
 
-    const response = await fetch(`http://103.93.58.89:23230/transaction`, {
+    const response = await fetch(`http://localhost:8888/transaction`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
@@ -119,7 +119,7 @@ function PaymentListOrder() {
             productSize: size.map((item) => item),
           });
           const response = await fetch(
-            `http://103.93.58.89:23230/transaction/${item.id}`,
+            `http://localhost:8888/transaction/${item.id}`,
             {
               method: "POST",
               headers: {

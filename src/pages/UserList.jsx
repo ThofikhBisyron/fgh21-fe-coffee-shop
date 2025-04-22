@@ -20,7 +20,7 @@ function UserList() {
   const [page, setPage] = useState(1);
 
   async function deleteItem(id) {
-    await fetch(`http://103.93.58.89:23230/profile/${id}`, {
+    await fetch(`http://localhost:8888/profile/${id}`, {
       method: "DELETE",
     });
     dataUser();
@@ -29,7 +29,7 @@ function UserList() {
   async function filterUsers(e) {
     e.preventDefault();
     const listDataUser = await fetch(
-      `http://103.93.58.89:23230/profile?page=${page}&search=${inputSearch}`,
+      `http://localhost:8888/profile?page=${page}&search=${inputSearch}`,
       {}
     );
 
@@ -42,7 +42,7 @@ function UserList() {
   async function paginationUsers(e) {
     e.preventDefault();
     const listDataUser = await fetch(
-      `http://103.93.58.89:23230/profile?page=${page}&search=${inputSearch}`,
+      `http://localhost:8888/profile?page=${page}&search=${inputSearch}`,
       {}
     );
     const listFilterUser = await listDataUser.json();
@@ -52,7 +52,7 @@ function UserList() {
   }
 
   async function dataUser() {
-    const endPoint = `http://103.93.58.89:23230/profile`;
+    const endPoint = `http://localhost:8888/profile`;
     const response = await fetch(endPoint);
     const data = await response.json();
     const listData = data.result;
