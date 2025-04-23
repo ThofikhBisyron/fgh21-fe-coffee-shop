@@ -17,14 +17,14 @@ function DetailOrder() {
   const [data, setData] = React.useState([]);
   const [product, setProduct] = React.useState([]);
   async function GetPayment() {
-    const response = await fetch(`http://localhost:8888/transaction/${id}`);
+    const response = await fetch(`http://157.230.243.8:10003/transaction/${id}`);
     const json = await response.json();
     setData(json.result);
     setLoading(false);
   }
   async function GetProduct() {
     const response = await fetch(
-      `http://localhost:8888/transaction/products/${id}`
+      `http://157.230.243.8:10003/transaction/products/${id}`
     );
     const json = await response.json();
     setProduct(json.result);

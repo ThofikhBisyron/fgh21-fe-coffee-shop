@@ -53,7 +53,7 @@ function InsertUser(props) {
 
     try {
       const response = await fetch(
-        "http://localhost:8888/users/insertuser",
+        "http://157.230.243.8:10003/users/insertuser",
         {
           method: "POST",
           body: data,
