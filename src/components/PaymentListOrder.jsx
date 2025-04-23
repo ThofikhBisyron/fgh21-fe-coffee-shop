@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import {
   FaPlus,
   FaRegEnvelope,
@@ -11,6 +11,8 @@ import Loading from "../component/Loading";
 import HandlerError from "../component/HandlerError.jsx";
 import { removeData } from "../redux/reducers/carts.js";
 import { addOrder } from "../redux/reducers/order.js";
+import { useGetCartQuery } from "../redux/services/cart.js";
+
 
 function PaymentListOrder() {
   const dispatch = useDispatch();
@@ -31,6 +33,12 @@ function PaymentListOrder() {
   const total = sumPrice * sumQuantity;
   const tax = (total * 10) / 100;
   const subTotal = total + tax;
+  const [getdetail, setGetDetail] = React.useState([])
+
+  const emailRef = useRef(null);
+  const nameRef = useRef(null);
+  const addressRef = useRef(null);
+
   async function GetCarts() {
     const response = await fetch(`http://localhost:8888/carts`, {
       headers: {
@@ -38,8 +46,9 @@ function PaymentListOrder() {
       },
     });
     const json = await response.json();
-
+    console.log(json.result)
     setDataProduct(json.result);
+    
   }
   async function DeleteCarts() {
     const response = await fetch(`http://localhost:8888/carts`, {
@@ -58,9 +67,12 @@ function PaymentListOrder() {
   }, []);
 
   async function TransactionPayment() {
-    const email = document.getElementById("email").value;
-    const fullName = document.getElementById("name").value;
-    const address = document.getElementById("address").value;
+    const email = emailRef.current.value
+    const fullName = nameRef.current.value
+    const address = addressRef.current.value
+    console.log(email)
+    console.log(fullName)
+    console.log(address)
     if (
       email === "" ||
       fullName === "" ||
@@ -74,14 +86,28 @@ function PaymentListOrder() {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-    const formData = new URLSearchParams({
-      fullName,
-      email,
-      address,
-      payment: "cash",
-      orderType: selectedDelivery,
-      transactionStatus: 2,
-    });
+    // const formData = new URLSearchParams({
+    //   fullName,
+    //   email,
+    //   address,
+    //   payment: "cash",
+    //   orderType: selectedDelivery,
+    //   transactionStatus: 2,
+    // });
+    const formData = new URLSearchParams()
+    formData.append("fullName", fullName)
+    formData.append("email", email)
+    formData.append("address", address)
+    formData.append("payment", "cash")
+    formData.append("orderType", selectedDelivery)
+    formData.append("transactionStatus", 2)
+    dataProduct.forEach(product => {
+      if (product.transactionDetail) {
+        formData.append("transactionDetail", product.transactionDetail);
+        console.log(product.transactionDetail);
+      }
+    });                          
+
 
     const response = await fetch(`http://localhost:8888/transaction`, {
       method: "POST",
@@ -90,11 +116,13 @@ function PaymentListOrder() {
       },
       body: formData,
     });
+
     const data = await response.json();
-    dispatch(addOrder(data.result));
-    setId(data.result.Id);
-    console.log(data);
+    console.log(data) 
+
     if (data.success) {
+      dispatch(addOrder(data.result));
+      setId(data.result.id);
       console.log(data.result.Id);
       function transactionDetail() {
         cart.map(async (item) => {
@@ -114,7 +142,7 @@ function PaymentListOrder() {
           }
           const formData = new URLSearchParams({
             quantity: item.quantity,
-            transaction: data.result.Id,
+            transaction: data.result.id,
             variant: variant.map((item) => item),
             productSize: size.map((item) => item),
           });
@@ -130,11 +158,14 @@ function PaymentListOrder() {
           );
           const json = await response.json();
           console.log(json);
+          navigate("/history-order")
         });
       }
       transactionDetail();
     }
   }
+
+  
   let Delivery = "";
   if (selectedDelivery === 1) {
     Delivery = "Dine In";
@@ -176,7 +207,7 @@ function PaymentListOrder() {
                   className="flex gap-7 p-2 bg-[#E8E8E8]/30 rounded-md w-full"
                 >
                   <div className="">
-                    <img src={Kopie} alt="" className="object-cover" />
+                    <img src={item.image} alt="" className="object-cover" />
                   </div>
                   <div className="flex flex-col gap-4">
                     <div className="flex justify-center max-w-32 bg-[#D00000] p-2 text-white rounded-full">
@@ -228,6 +259,7 @@ function PaymentListOrder() {
                       type="email"
                       name="email"
                       id="email"
+                      ref={emailRef}
                       defaultValue={profile.email}
                       placeholder="Enter Your Email"
                       className="w-full outline-none"
@@ -247,6 +279,7 @@ function PaymentListOrder() {
                       type="text"
                       name="name"
                       id="name"
+                      ref={nameRef}
                       placeholder="Enter Your Full Name"
                       defaultValue={profile.fullName}
                       className="w-full outline-none"
@@ -266,6 +299,7 @@ function PaymentListOrder() {
                       type="text"
                       name="address"
                       id="address"
+                      ref={addressRef}
                       placeholder="Enter Your Address"
                       className="w-full outline-none"
                     />

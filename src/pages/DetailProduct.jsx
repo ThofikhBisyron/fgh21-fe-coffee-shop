@@ -62,47 +62,48 @@ function DetailProduct() {
   if (selectedTemperature === 2) {
     variant = "Hot";
   }
-  async function cart(e) {
-    e.preventDefault();
-    if (num == 0) {
-      setShowPopUp(true);
-      return;
-    }
-    setLoading(false);
-    const formData = new URLSearchParams();
-    formData.append("quantity", num);
-    formData.append("variant", selectedTemperature);
-    formData.append("productSize", selectedSize);
-    const response = await fetch(`http://localhost:8888/carts/${id}`, {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-      body: formData,
-    });
-    const json = await response.json();
-    if (json.success) {
-      setTimeout(() => {
-        setLoading(true);
-        navigate("/payment-detail");
-        dispatch(
-          addCart({
-            id: id,
-            title: product.title,
-            quantity: num,
-            size: size,
-            variant: variant,
-            price: product.price,
-          })
-        );
-      }, 3000);
-    }
-  }
+  // async function cart(e) {
+  //   e.preventDefault();
+  //   if (num == 0) {
+  //     setShowPopUp(true);
+  //     return;
+  //   }
+  //   setLoading(false);
+  //   const formData = new URLSearchParams();
+  //   formData.append("quantity", num);
+  //   formData.append("variant", selectedTemperature);
+  //   formData.append("productSize", selectedSize);
+  //   const response = await fetch(`http://localhost:8888/carts/${id}`, {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: "Bearer " + token,
+  //     },
+  //     body: formData,
+  //   });
+  //   const json = await response.json();
+  //   if (json.success) {
+  //     setTimeout(() => {
+  //       setLoading(true);
+  //       // navigate("/payment-detail");
+  //       dispatch(
+  //         addCart({
+  //           id: id,
+  //           title: product.title,
+  //           quantity: num,
+  //           size: size,
+  //           variant: variant,
+  //           price: product.price,
+  //         })
+  //       );
+  //     }, 3000);
+  //   }
+  // }
   async function cart() {
     const formData = new URLSearchParams();
     formData.append("quantity", num);
     formData.append("variant", selectedTemperature);
     formData.append("productSize", selectedSize);
+    console.log(selectedTemperature) 
 
     const response = await fetch(`http://localhost:8888/carts/${id}`, {
       method: "POST",
@@ -111,6 +112,20 @@ function DetailProduct() {
       },
       body: formData,
     });
+
+    if (response.ok) {
+      dispatch(
+        addCart({
+          id: id,
+          title: product.title,
+          quantity: num,
+          size: size,
+          variant: variant,
+          price: product.price,
+        })
+      );
+      navigate("/payment-detail")
+    }
   }
 
   async function recommendation() {
