@@ -48,7 +48,7 @@ function EditUser(props) {
 
     try {
       const response = await fetch(
-        "http://157.230.243.8:10003/profile/" + props.id,
+        "http://143.198.222.47:10003/profile/" + props.id,
         {
           method: "PATCH",
           body: data,
@@ -82,14 +82,14 @@ function EditUser(props) {
     e.preventDefault();
     const form = new FormData();
     form.append("profileImg", file);
-    await fetch("http://157.230.243.8:10003/profile/img/" + props.id, {
+    await fetch("http://143.198.222.47:10003/profile/img/" + props.id, {
       method: "PATCH",
       body: form,
     });
     props.closeMenu(false);
   }
   async function getData() {
-    const endPoint = "http://157.230.243.8:10003/profile/" + props.id;
+    const endPoint = "http://143.198.222.47:10003/profile/" + props.id;
     const response = await fetch(endPoint);
     const data = await response.json();
     const listData = data.result;

@@ -73,7 +73,7 @@ function DetailProduct() {
   //   formData.append("quantity", num);
   //   formData.append("variant", selectedTemperature);
   //   formData.append("productSize", selectedSize);
-  //   const response = await fetch(`http://157.230.243.8:10003/carts/${id}`, {
+  //   const response = await fetch(`http://143.198.222.47:10003/carts/${id}`, {
   //     method: "POST",
   //     headers: {
   //       Authorization: "Bearer " + token,
@@ -105,7 +105,7 @@ function DetailProduct() {
     formData.append("productSize", selectedSize);
     console.log(selectedTemperature) 
 
-    const response = await fetch(`http://157.230.243.8:10003/carts/${id}`, {
+    const response = await fetch(`http://143.198.222.47:10003/carts/${id}`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
@@ -130,7 +130,7 @@ function DetailProduct() {
 
   async function recommendation() {
     const respont = await axios.get(
-      "http://157.230.243.8:10003/products/our-product/?page=1&limit=4"
+      "http://143.198.222.47:10003/products/our-product/?page=1&limit=4"
     );
     setRecomend(respont.product);
   }
