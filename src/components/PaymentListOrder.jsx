@@ -40,7 +40,7 @@ function PaymentListOrder() {
   const addressRef = useRef(null);
 
   async function GetCarts() {
-    const response = await fetch(`http://143.198.222.47:10003/carts`, {
+    const response = await fetch(`http://35.240.184.74:10003/carts`, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -51,7 +51,7 @@ function PaymentListOrder() {
     
   }
   async function DeleteCarts() {
-    const response = await fetch(`http://143.198.222.47:10003/carts`, {
+    const response = await fetch(`http://35.240.184.74:10003/carts`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + token,
@@ -109,7 +109,7 @@ function PaymentListOrder() {
     });                          
 
 
-    const response = await fetch(`http://143.198.222.47:10003/transaction`, {
+    const response = await fetch(`http://35.240.184.74:10003/transaction`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
@@ -147,7 +147,7 @@ function PaymentListOrder() {
             productSize: size.map((item) => item),
           });
           const response = await fetch(
-            `http://143.198.222.47:10003/transaction/${item.id}`,
+            `http://35.240.184.74:10003/transaction/${item.id}`,
             {
               method: "POST",
               headers: {

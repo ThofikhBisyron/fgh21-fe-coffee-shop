@@ -6,7 +6,7 @@ import { useEffect } from "react";
 function PromoList() {
   const [promos, setPromos] = React.useState([]);
   async function promo() {
-    const dataProduct = await fetch("http://143.198.222.47:10003/promo", {});
+    const dataProduct = await fetch("http://35.240.184.74:10003/promo", {});
     const listData = await dataProduct.json();
     setPromos(listData.result);
   }
