@@ -17,7 +17,7 @@ function EditProduct(props) {
   console.log(product);
   async function products() {
     const dataProducts = await fetch(
-      "http://35.240.184.74:10003/products/" + props.id,
+      "http://165.22.51.58:10003/products/" + props.id,
       {}
     );
     const listProduct = await dataProducts.json();
@@ -39,7 +39,7 @@ function EditProduct(props) {
     form.append("price", price);
     form.append("stock", stock);
     const dataProduct = await fetch(
-      "http://35.240.184.74:10003/products/" + props.id,
+      "http://165.22.51.58:10003/products/" + props.id,
       {
         method: "PATCH",
         headers: {

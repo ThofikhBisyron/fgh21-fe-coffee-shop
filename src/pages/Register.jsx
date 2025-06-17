@@ -26,7 +26,7 @@ function Register() {
     data.append("email", email);
     data.append("password", password);
     data.append("cPassword", confirmPassword);
-    const response = await fetch("http://35.240.184.74:10003/auth/register", {
+    const response = await fetch("http://165.22.51.58:10003/auth/register", {
       method: "POST",
       body: data,
     });
