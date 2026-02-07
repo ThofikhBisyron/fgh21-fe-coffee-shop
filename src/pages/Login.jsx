@@ -137,7 +137,7 @@ function Login() {
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="Enter Your Email #admin@mail.com"
+                    placeholder="Enter Your Email"
                     onChange={formik.handleChange}
                     className={
                       formik.errors.email && formik.touched.email
@@ -163,7 +163,7 @@ function Login() {
                     type={pass}
                     name="password"
                     id="password"
-                    placeholder="Enter Your Password #admin123"
+                    placeholder="Enter Your Password"
                     className="w-full outline-none"
                     onChange={formik.handleChange}
                   />
