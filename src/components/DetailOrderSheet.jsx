@@ -25,7 +25,7 @@ function DetailOrderSheet(props) {
     formData.append("transactionStatus", statusInt);
 
     const dataStatus = await fetch(
-      "http://165.22.51.58:10003/transaction-status/update/" + props.data.noOrder,
+      "http://35.197.137.53:10003/transaction-status/update/" + props.data.noOrder,
       {
         method: "PATCH",
         headers: {

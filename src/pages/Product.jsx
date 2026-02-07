@@ -19,7 +19,7 @@ function Product() {
     title = ""
   ) {
     const dataProducts = await fetch(
-      `http://165.22.51.58:10003/products/filter/price?title=${title}&lowPrice=${lowPrice}&highPrice=${highPrice}&name=${name}`
+      `http://35.197.137.53:10003/products/filter/price?title=${title}&lowPrice=${lowPrice}&highPrice=${highPrice}&name=${name}`
     );
     const listProduct = await dataProducts.json();
     setProduct(listProduct.result);

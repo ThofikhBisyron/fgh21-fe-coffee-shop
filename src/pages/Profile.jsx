@@ -76,7 +76,7 @@ function Profile() {
     }
     formData.append("address", address);
 
-    const dataProfile = await fetch("http://165.22.51.58:10003/profile", {
+    const dataProfile = await fetch("http://35.197.137.53:10003/profile", {
       method: "PATCH",
       headers: {
         Authorization: "Bearer " + token,
@@ -101,7 +101,7 @@ function Profile() {
   async function uploadImage(e) {
     setLoading(true);
     e.preventDefault();
-    const url = "http://165.22.51.58:10003/profile/img";
+    const url = "http://35.197.137.53:10003/profile/img";
     const formData = new FormData();
     formData.append("profileImg", file);
     const config = {
@@ -114,7 +114,7 @@ function Profile() {
       const respont = await axios.patch(url, formData, config);
       if (respont.data.success) {
         const response = await fetch(
-          "http://165.22.51.58:10003/profile/login",
+          "http://35.197.137.53:10003/profile/login",
           {
             headers: {
               Authorization: "Bearer " + token,
